@@ -1,0 +1,3 @@
+/Applications/MAMP/htdocs/mission1/bot_c/cmake-build-debug/CMakeFiles/bot_c.dir
+/Applications/MAMP/htdocs/mission1/bot_c/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Applications/MAMP/htdocs/mission1/bot_c/cmake-build-debug/CMakeFiles/rebuild_cache.dir
