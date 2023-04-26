@@ -5,6 +5,6 @@ set(CMAKE_C_STANDARD 99)
 
 include_directories(/usr/local/Cellar/curl/8.0.1/include)
 
-add_executable(bot_c main.c)
+add_executable(bot_c main.c bot_functions.c bot_functions.h)
 
 target_link_libraries(bot_c /usr/local/Cellar/curl/8.0.1/lib/libcurl.dylib)

@@ -56,6 +56,13 @@ build CMakeFiles/bot_c.dir/main.c.o: C_COMPILER__bot_c_Debug /Applications/MAMP/
   OBJECT_DIR = CMakeFiles/bot_c.dir
   OBJECT_FILE_DIR = CMakeFiles/bot_c.dir
 
+build CMakeFiles/bot_c.dir/bot_functions.c.o: C_COMPILER__bot_c_Debug /Applications/MAMP/htdocs/mission1/bot_c/bot_functions.c || cmake_object_order_depends_target_bot_c
+  DEP_FILE = CMakeFiles/bot_c.dir/bot_functions.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -mmacosx-version-min=12.6 -fcolor-diagnostics -std=gnu99
+  INCLUDES = -I/usr/local/Cellar/curl/8.0.1/include
+  OBJECT_DIR = CMakeFiles/bot_c.dir
+  OBJECT_FILE_DIR = CMakeFiles/bot_c.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target bot_c
@@ -64,7 +71,7 @@ build CMakeFiles/bot_c.dir/main.c.o: C_COMPILER__bot_c_Debug /Applications/MAMP/
 #############################################
 # Link the executable bot_c
 
-build bot_c: C_EXECUTABLE_LINKER__bot_c_Debug CMakeFiles/bot_c.dir/main.c.o | /usr/local/Cellar/curl/8.0.1/lib/libcurl.dylib
+build bot_c: C_EXECUTABLE_LINKER__bot_c_Debug CMakeFiles/bot_c.dir/main.c.o CMakeFiles/bot_c.dir/bot_functions.c.o | /usr/local/Cellar/curl/8.0.1/lib/libcurl.dylib
   FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -mmacosx-version-min=12.6
   LINK_LIBRARIES = /usr/local/Cellar/curl/8.0.1/lib/libcurl.dylib
   OBJECT_DIR = CMakeFiles/bot_c.dir
