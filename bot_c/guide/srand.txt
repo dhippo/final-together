@@ -2,7 +2,7 @@ La fonction srand() en langage C, qui se trouve dans la bibliothèque stdlib.h, 
 nombres aléatoires. Cette fonction prend un argument, appelé "graine" (seed), qui est utilisé pour déterminer la séquence de
 nombres aléatoires générés par la fonction rand().
 
-Dans le code que vous avez fourni, srand(time(NULL)); est utilisé pour initialiser le générateur de nombres aléatoires avec la valeur
+Dans le code que notre code, srand(time(NULL)); est utilisé pour initialiser le générateur de nombres aléatoires avec la valeur
 actuelle du temps (en secondes depuis l'époque UNIX, c'est-à-dire le 1er janvier 1970). time(NULL) renvoie le temps actuel et le passe
 comme argument à srand().
 

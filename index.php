@@ -111,7 +111,7 @@
         scrollable.scrollTop = scrollable.scrollHeight;
     </script>
 <?php
-print('$_SESSION=<pre>'.print_r($_SESSION, true).'</pre><br><br>');
+//  print('$_SESSION=<pre>'.print_r($_SESSION, true).'</pre><br><br>');
 
 ?>
 </body>

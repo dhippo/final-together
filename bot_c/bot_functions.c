@@ -32,7 +32,7 @@ void perform_curl_request(const char *url) {
 
     curl_global_cleanup();
 }
-const char *find_activity_title(const char *activity_type) {
+const char *find_activity_title(const char *activity_type) {    
     static const char *activity_titles[][2] = {
             {"escapegame", "Escape Game"},
             {"evcaritatif", "Événement caritatif"},
@@ -117,22 +117,25 @@ void to_lowercase(char *str) {
     }
 }
 
-// (...)
 // Fonction pour extraire les mots-clés d'activité et de question de la chaîne d'entrée
 void identify_activity_and_question(const char *input, const char **activity_type, const char **question_type) {
-    // Copiez la chaîne d'entrée dans le tampon et assurez-vous qu'elle se termine par un caractère nul
+    // Copie de la chaîne d'entrée dans le tampon et vérif qu'elle se termine par un caractère nul
     char input_buffer[256];
     strncpy(input_buffer, input, sizeof(input_buffer) - 1);
     input_buffer[sizeof(input_buffer) - 1] = '\0';
 
+    // minsusculisation de la chaîne d'entrée
     to_lowercase(input_buffer);
 
-    // Commencez à analyser les mots de la chaîne d'entrée en les séparant par des espaces
+    /** SEPARATION DE CHAQUE MOT DE LA CHAINE DE CARACTERES **/
+    // Analyse des mots de la chaîne d'entrée en les séparant par des espaces
     char *word = strtok(input_buffer, " ");
+
+    // Variables temporaires pour stocker les types d'activité et de question
     const char *temp_activity_type = NULL;
     const char *temp_question_type = NULL;
 
-    // Continuez à analyser les mots jusqu'à ce qu'il n'y en ait plus
+    // Analyse des mots jusqu'à ce qu'il n'y en ait plus
     while (word != NULL) {
         temp_activity_type = find_activity_type(word);
         if (temp_activity_type) {
@@ -149,17 +152,22 @@ void identify_activity_and_question(const char *input, const char **activity_typ
 }
 
 int identify_basic_question(const char *input) {
+    to_lowercase(input);
+    // ERROR
+    // Passing 'const char *' to parameter of type 'char *' discards qualifiers passing argument to parameter 'str' here
+
     static const char* basic_questions[][3] = {
             {"comment ça va ?",                  "comment ca va ?",                  "ça va ?"},
             {"comment t'appelles-tu ?",          "quel est ton nom ?",               "comment tu t'appelles"},
             {"qui est tu ?",                     "qui est ton créateur ?",           "pour qui travailles tu ?"},
             {"où habites-tu ?",                  "t'habites où",                     "où tu habites"},
             {"quel âge as-tu ?",                 "quel age as tu ?",                 "tu as quel âge ?"},
-            {"quel est ton sport préféré ?",     "quel est ton sport préféré ?",     "tu aimes quel sport ?"},
-            {"quel est ton film préféré ?",      "quel est ton film préféré ?",      "tu aimes quel film ?"},
+            {"quel est ton sport préféré ?",     "quel est le meilleur sport ?",     "tu aimes le sport ?"},
+            {"quel est ton film préféré ?",      "tu connais un film ?",      "tu aimes quel film ?"},
             {"quel est ton jeu vidéo préféré ?", "quel est ton jeu vidéo préféré ?", "tu aimes quel jeu vidéo ?"},
             {"quel est ton livre préféré ?",     "quel est ton livre préféré ?",     "tu aimes quel livre ?"},
             {"quel est ton animal préféré ?",    "quel est ton animal préféré ?",    "tu aimes quel animal ?"},
+            {"bonjour",    "bjr",    "bonjour"},
     };
 
     size_t num_basic_questions = sizeof(basic_questions) / sizeof(basic_questions[0]);
@@ -176,20 +184,21 @@ int identify_basic_question(const char *input) {
 
 const char *get_basic_answer(int basic_question_index) {
     static const char* basic_answers[][3] = {
-            {"Je vais très bien",                             "Mercio de me demander",                          "Ça va super"},
+            {"Je vais très bien",                             "C'est gentil ça va merci de me demander",                          "En ce moment, ça va super"},
             {"Je suis TogetherBot",                           "Je m'appelle TogetherBot",                      "TogetherBot, c'est moi !"},
             {"Je suis un bot créé par Together",              "Un programme informatique créé pour répondre à vos questions",              "Un bot entraîné sur un domaine spécifique"},
             {"Je suis dans le cloud",                         "Je n'habites pas vraiment quelque part",        "Je ne fais pas partie du monde physique"},
-            {"Je suis un bot, je n'ai pas d'âge",             "Je suis un bot, je n'ai pas d'âge",             "Je suis un bot, je n'ai pas d'âge"},
+            {"Je suis un bot, je n'ai pas d'âge",             "Je suis un bot, et malheureusement je n'ai pas d'âge",             "Je suis un bot, je ne soufflerai jamais de bougie"},
             {"Mon sport préféré est le tennis",               "Mon sport préféré est le tennis",               "Mon sport préféré est le tennis"},
-            {"Mon film préféré est Interstellar",             "Mon film préféré est Interstellar",             "Mon film préféré est Interstellar"},
+            {"Mon film préféré est Very Bad Trip",             "Very Bad Trip, je rêve d'être un humain",             "Mon film préféré est Very Bad Trip"},
             {"Mon jeu vidéo préféré est The Witcher 3",       "Mon jeu vidéo préféré est The Witcher 3",       "Mon jeu vidéo préféré est The Witcher 3"},
             {"Mon livre préféré est Le Seigneur des Anneaux", "Mon livre préféré est Le Seigneur des Anneaux", "Mon livre préféré est Le Seigneur des Anneaux"},
-            {"Mon animal préféré est le chat",                "Mon animal préféré est le chat",                "Mon animal préféré est le chat"}
+            {"Mon animal préféré est le chat",                "Mon animal préféré est le chat",                "Mon animal préféré est le chat"},
+            {"salut, vous avez des questions sur les activités du Team Building",                "Bonjour avez-vous une question ?",                "Coucou, vous avez des questions sur les activités ?"}
     };
 
 
-    // Choisissez une réponse aléatoire parmi les réponses associées
+    // On choisit une réponse aléatoire parmi les réponses associées
     int answer_index = rand() % 3;
 
     return basic_answers[basic_question_index][answer_index];
@@ -199,23 +208,25 @@ const char *get_basic_answer(int basic_question_index) {
 
 // Fonction pour traiter la question utilisateur et exécuter les requêtes cURL pour chaque mot de la phrase
 void question_treatment(const char *input) {
-    // Vérifiez si la question est une question de base
-    // c'est-à-dire, si la question est une question à laquelle nous pouvons répondre sans avoir besoin d'interroger l'API
-    // une question simple du type "Comment ça va ?" ou "Qui es tu ?"
-    int basic_question_index = identify_basic_question(input);
-    /** return -1 si la question n'est pas identifié comme "basique" */
+    // Transformer la chaîne reçue en minuscule
+    char input_lower[256];
+    strncpy(input_lower, input, sizeof(input_lower) - 1);
+    input_lower[sizeof(input_lower) - 1] = '\0';
+    to_lowercase(input_lower);
+
+    // Vérification pour savoir si la question est une question de base
+    int basic_question_index = identify_basic_question(input_lower);
 
     if (basic_question_index != -1) {
         const char *answer = get_basic_answer(basic_question_index);
         printf("%s\n", answer);
     } else {
-
         // On tente ici d'identifier le type d'activité et le type de question
         const char *activity_type = NULL;
         const char *question_type = NULL;
-        identify_activity_and_question(input, &activity_type, &question_type);
+        identify_activity_and_question(input_lower, &activity_type, &question_type);
 
-        // Si on a trouvé les deux, on peut faire une requête cURL avec les deux paramètres et retourner une reponse précise écrite en bdd
+        // Si on a trouvé les deux, on peut faire une requête cURL avec les deux paramètres et retourner une réponse précise écrite en bdd
         if (activity_type && question_type) {
             char url[1024];
             snprintf(url, sizeof(url), "http://localhost:8888/api-together/index.php?action=specificInfo&activity_type=%s&question_type=%s", activity_type, question_type);
@@ -232,6 +243,3 @@ void question_treatment(const char *input) {
         }
     }
 }
-
-
-
