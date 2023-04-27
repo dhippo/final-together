@@ -208,7 +208,8 @@ const char *get_basic_answer(int basic_question_index) {
 
 
 // Fonction pour traiter la question utilisateur et exécuter les requêtes cURL pour chaque mot de la phrase
-void question_treatment(const char *input) {
+void question_treatment(const char *input, const char *api_base_url) {
+
     // Transformer la chaîne reçue en minuscule
     char input_lower[256];
     strncpy(input_lower, input, sizeof(input_lower) - 1);
@@ -230,7 +231,7 @@ void question_treatment(const char *input) {
         // Si on a trouvé les deux, on peut faire une requête cURL avec les deux paramètres et retourner une réponse précise écrite en bdd
         if (activity_type && question_type) {
             char url[1024];
-            snprintf(url, sizeof(url), "http://localhost:8888/api-together2/index.php?action=specificInfo&activity_type=%s&question_type=%s", activity_type, question_type);
+            snprintf(url, sizeof(url), "%s/index.php?action=specificInfo&activity_type=%s&question_type=%s", api_base_url, activity_type, question_type);
             perform_curl_request(url);
         } else if (activity_type) {
             const char *activity_title = find_activity_title(activity_type);

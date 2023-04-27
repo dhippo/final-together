@@ -1,10 +1,12 @@
 <?php
-$config = [
-            "en_local" => "/Applications/MAMP/htdocs/mission1/bot_c/cmake-build-debug/bot_c ",
-            "sur_le_serveur" => "/var/www/html/chatbot/bot_c/NOM_EXECUTABLE ",
-]
-?>
+define("BOT_EXE_PATH", "/Applications/MAMP/htdocs/mission1/bot_c/cmake-build-debug/bot_c ");
+/**
+    * "en_local" => "/Applications/MAMP/htdocs/mission1/bot_c/cmake-build-debug/bot_c ",
+    * "sur_serveur" => "/var/www/html/chatbot/bot_c/NOM_EXECUTABLE ",
 
+    POUR COMPILER :  gcc -o bot_c/NOM_EXECUTABLE main.c bot_functions.c -lcurl
+*/
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -50,7 +52,7 @@ $config = [
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['clear_history'])) {
                 sleep(0.8);
                 $question = $_POST['question'];
-                $commande = '/Applications/MAMP/htdocs/mission1/bot_c/cmake-build-debug/bot_c ' . escapeshellarg($question);
+                $commande = BOT_EXE_PATH . escapeshellarg($question);
 
                 // création du tableau de session permettant de garder en mémoire les questions et réponses
                 if (!isset($_SESSION['chat_history'])) {
@@ -67,7 +69,7 @@ $config = [
 
                     if (substr($last_answer, 0, strlen($previous_question_check)) === $previous_question_check) {
                     
-                        $commande = '/Applications/MAMP/htdocs/mission1/bot_c/cmake-build-debug/bot_c ' . escapeshellarg($last_question . ' ' . $question);
+                        $commande = BOT_EXE_PATH . escapeshellarg($last_question . ' ' . $question);
                     }
                 } 
 

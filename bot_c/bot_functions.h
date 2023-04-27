@@ -35,7 +35,7 @@ int identify_basic_question(const char *input);
 const char *get_basic_answer(int basic_question_index);
 
 // Fonction pour traiter une question
-void question_treatment(const char *input);
+void question_treatment(const char *input, const char *api_base_url);
 
 
 #endif //BOT_C_BOT_FUNCTIONS_H
