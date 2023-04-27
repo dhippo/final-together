@@ -32,7 +32,7 @@ void perform_curl_request(const char *url) {
 
     curl_global_cleanup();
 }
-const char *find_activity_title(const char *activity_type) {    
+const char *find_activity_title(const char *activity_type) {
     static const char *activity_titles[][2] = {
             {"escapegame", "Escape Game"},
             {"evcaritatif", "Événement caritatif"},
@@ -152,9 +152,10 @@ void identify_activity_and_question(const char *input, const char **activity_typ
 }
 
 int identify_basic_question(const char *input) {
-    to_lowercase(input);
-    // ERROR
-    // Passing 'const char *' to parameter of type 'char *' discards qualifiers passing argument to parameter 'str' here
+    char input_lower[256];
+    strncpy(input_lower, input, sizeof(input_lower) - 1);
+    input_lower[sizeof(input_lower) - 1] = '\0';
+    to_lowercase(input_lower);
 
     static const char* basic_questions[][3] = {
             {"comment ça va ?",                  "comment ca va ?",                  "ça va ?"},
@@ -174,7 +175,7 @@ int identify_basic_question(const char *input) {
 
     for (size_t i = 0; i < num_basic_questions; i++) {
         for (size_t j = 0; j < 3; j++) {
-            if (strcmp(input, basic_questions[i][j]) == 0) {
+            if (strcmp(input_lower, basic_questions[i][j]) == 0) {
                 return i;
             }
         }
