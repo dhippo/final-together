@@ -1,4 +1,9 @@
-
+<?php
+$config = [
+            "en_local" => "/Applications/MAMP/htdocs/mission1/bot_c/cmake-build-debug/bot_c ",
+            "sur_le_serveur" => "/var/www/html/chatbot/bot_c/NOM_EXECUTABLE ",
+]
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -14,7 +19,7 @@
     </style>
 </head>
 <body class="bg-gray-200">
-    <div class="bg-white mx-auto my-10 p-6 rounded-lg w-11/12 md:w-3/5 lg:w-3/5 xl:w-2/5" style="height: 70vh; width: 40vw;">
+    <div class="bg-white mx-auto my-10 p-6 rounded-lg w-11/12 md:w-3/5 lg:w-3/5 xl:w-2/5" style="height: 70vh;">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-2xl font-semibold mb-2">Together & Stronger Chatbot</h2>
             <form action="index.php" method="post" class="flex justify-end">

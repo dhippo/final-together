@@ -230,7 +230,7 @@ void question_treatment(const char *input) {
         // Si on a trouvé les deux, on peut faire une requête cURL avec les deux paramètres et retourner une réponse précise écrite en bdd
         if (activity_type && question_type) {
             char url[1024];
-            snprintf(url, sizeof(url), "http://localhost:8888/api-together/index.php?action=specificInfo&activity_type=%s&question_type=%s", activity_type, question_type);
+            snprintf(url, sizeof(url), "http://localhost:8888/api-together2/index.php?action=specificInfo&activity_type=%s&question_type=%s", activity_type, question_type);
             perform_curl_request(url);
         } else if (activity_type) {
             const char *activity_title = find_activity_title(activity_type);
